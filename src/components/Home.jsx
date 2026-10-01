@@ -1,65 +1,77 @@
 import { useState, useEffect } from "react";
-// Put sunlogo.png in  src/assets/  (this file lives in src/components/Home.jsx)
+// Put sunlogo.png in /public/ (imported as "/sunlogo.png")
 import universityLogo from "/sunlogo.png";
 
 /* ------------------------------------------------------------------
    SETUP
-   1. Put the 9 uploaded images in  /public/  (same filenames as in IMG below).
-   2. Put your logo at  src/assets/sunlogo.png  (case-sensitive filename).
-   3. All styling is inline CSS (no Tailwind / CSS files needed).
-      Add this once to your global CSS or index.html for a clean base:
+   1. Put all images in /public/ (same filenames as used below).
+   2. All styling is inline CSS. Add once to global CSS:
          body { margin: 0; }
-   4. Replace everything inside CONTENT with the exact copy from
-      sod.sandipuniversity.edu.in  (items marked "REPLACE" are placeholders).
-   5. In handleSubmit(), send the lead to your CRM and fire your
+         html { scroll-behavior: smooth; }
+   3. In handleSubmit(), send the lead to your CRM and fire your
       Google Ads conversion event (gtag_report_conversion).
 ------------------------------------------------------------------- */
 
-// Every image is used exactly once.
+const RECRUITERS = [
+  { name: "Rêve Pharma", src: "/10007.png" },
+  { name: "Yugandhar", src: "/10001.png" },
+  { name: "Nova Beauty", src: "/10010.png" },
+  { name: "Pantaloons", src: "/10009.png" },
+  { name: "Forest Essentials", src: "/10004.jpg" },
+  { name: "Design Cafe", src: "/10002.png" },
+  { name: "The Souled Store", src: "/10008.png" },
+  { name: "Anant Fragrance Pvt. Ltd.", src: "/10005.png" },
+];
+
+const CAMPUS = [
+  { src: "/labimg.jpg", title: "Advanced Labs", text: "State-of-the-art laboratories for hands-on experiments and innovation." },
+  { src: "/studentActivities.jpg", title: "Student Activities", text: "Cultural festivals, sports, clubs, and various student-led initiatives." },
+  { src: "/securityimg.webp", title: "24×7 Security", text: "Round-the-clock surveillance with advanced monitoring systems." },
+  { src: "/gym.webp", title: "Gymnasium", text: "Modern fitness center with advanced workout machines." },
+  { src: "/campus-1.jpg", title: "Vibrant Campus Atmosphere", text: "Experience an energetic campus filled with learning, culture and fun." },
+  { src: "/classroom-1.jpg", title: "Modern Classrooms", text: "Well-equipped digital classrooms designed for interactive learning." },
+  { src: "/library.jpg", title: "Library & Research Center", text: "A huge digital + physical library supporting academic and research needs." },
+  { src: "/hostel.jpg", title: "Hostel & Accommodation", text: "Comfortable, secure hostel facilities that feel like a second home." },
+];
+
 const IMG = {
-  hero: "/6A5A8616.jpg", // draping on mannequin
-  campus: "/042__1_.jpg", // campus panorama
-  mentor: "/SKP07334__1_.jpg", // faculty mentoring student
-  craft: "/SKP07289__1_.jpg", // student embroidering
-  collab: "/DSC_4484__1_.jpg", // students sketching + stitching
-  detail: "/DSC_4518__1_.jpg", // close-up embroidery
-  bottles: "/DSC_0045.JPG", // painted bottle art
-  indigo: "/DSC_0042.JPG", // indigo-dyed drapes
-  saree: "/DSC_0039.JPG", // block-print saree
+  hero: "/6A5A8616.jpg",
+  campus: "/042__1_.jpg",
+  bottles: "/DSC_0045.JPG",
+  indigo: "/DSC_0042.JPG",
+  saree: "/DSC_0039.JPG",
 };
 
 const CONTENT = {
   brand: "Sandip University",
-  // school: "School of Design",
-
-  phone: "+91-XXXXXXXXXX", // REPLACE
-  phoneHref: "tel:+91XXXXXXXXXX", // REPLACE
-  heroTag: "Admissions Open 2026–27", // REPLACE
+  phone: "+91-8956374111",
+  phoneHref: "tel:+918956374111",
+  heroTag: "Admissions Open 2026–27",
   heroTitle: "Design Your Future at the School of Design",
   heroSub:
-    "Studio-based, industry-connected design education where you learn by making — from fashion and textiles to craft and creative direction.", // REPLACE
+    "Studio-based, industry-connected design education where you learn by making — from fashion and textiles to craft and creative direction.",
   heroPoints: [
     "Hands-on studio learning",
     "Experienced faculty mentors",
     "Industry-aligned curriculum",
     "Modern campus & design labs",
-  ], // REPLACE
+  ],
   stats: [
-    { value: "00+", label: "Years of Excellence" },
-    { value: "00+", label: "Industry Partners" },
-    { value: "00+", label: "Design Labs & Studios" },
-    { value: "00%", label: "Placement Support" },
-  ], // REPLACE with real figures
+    { value: "20+", label: "Years of Excellence" },
+    { value: "150+", label: "Industry Partners" },
+    { value: "20+", label: "Design Labs & Studios" },
+    { value: "100%", label: "Placement Support" },
+  ],
   aboutTitle: "About the School of Design",
   aboutText: [
-    "The School of Design at Sandip University nurtures creative thinkers who can turn ideas into products, garments and experiences.",
-    "Students work in fully equipped studios, learn traditional techniques like block printing, dyeing and embroidery, and pair them with contemporary design thinking.",
-  ], // REPLACE
+    "School of Design at Sandip University, Nashik, is a state-of-the-art design institute offering undergraduate, postgraduate, and PhD courses. The school has world-class infrastructure, exceptional facilities, and resources such as a weaving studio, dyeing and printing studio, graphic studio, wood workshop, and more.",
+    "Students also receive hands-on practical experience through its well-rounded curriculum in Fashion and Lifestyle Design, Communication Design, Product Design, Space and Interior Design, Beauty Cosmetology and more. The Bachelor of Design (B.DES) and B.SC and M.SC programs help students understand design in real-world settings while boosting their creativity and technical skills.",
+  ],
   programs: [
-    { name: "B.Des", duration: "4 Years", blurb: "Undergraduate design degree with specialisation options." },
-    { name: "M.Des", duration: "2 Years", blurb: "Advanced design practice, research and portfolio building." },
-    { name: "Diploma / Certificate", duration: "As per programme", blurb: "Short, skill-focused programmes in design and craft." },
-  ], // REPLACE with the programmes listed on the SOD page
+    { name: "Bachelor of Design (B.Des)", duration: "4 Years", blurb: "Undergraduate design degree with specialisation options." },
+    { name: "Bachelor of Science (B.Sc)", duration: "3 Years", blurb: "Science-based degrees in fashion, interiors and beauty." },
+    { name: "Master of Science (M.Sc)", duration: "2 Years", blurb: "Advanced science-based programmes in fashion and beauty." },
+  ],
   highlights: [
     { title: "Learn by Making", text: "Draping, pattern making, dyeing, printing and embroidery in dedicated studios." },
     { title: "Mentorship", text: "Small studio groups with faculty who guide every project one-to-one." },
@@ -67,7 +79,7 @@ const CONTENT = {
     { title: "Portfolio Ready", text: "Exhibitions and live projects help you graduate with work that stands out." },
     { title: "Industry Exposure", text: "Workshops, guest sessions and internships with design houses and brands." },
     { title: "Green Campus", text: "A spacious, well-connected campus built for creative focus." },
-  ], // REPLACE
+  ],
   careers: [
     "Fashion Designer",
     "Textile Designer",
@@ -77,21 +89,114 @@ const CONTENT = {
     "Merchandiser",
     "Creative Director",
     "Entrepreneur / Label Founder",
-  ], // REPLACE
+  ],
   steps: [
     { title: "Enquire", text: "Fill the form or call our admission desk." },
     { title: "Counselling", text: "Talk to our team about programmes and eligibility." },
     { title: "Apply", text: "Submit your application and documents." },
     { title: "Enrol", text: "Confirm your seat and start your design journey." },
-  ], // REPLACE
-  faqs: [
-    { q: "What is the eligibility for admission?", a: "Eligibility depends on the programme. Please share your details and our counsellor will confirm the exact criteria." }, // REPLACE
-    { q: "Do I need a drawing or portfolio background?", a: "No prior portfolio is mandatory for most programmes — creativity and interest matter most. Confirm with admissions for your chosen course." }, // REPLACE
-    { q: "Are scholarships available?", a: "Merit-based scholarships may be available. Ask our admission team for the latest details." }, // REPLACE
-    { q: "Is there placement or internship support?", a: "Yes, the university supports students with internships and placement opportunities in the design industry." }, // REPLACE
   ],
-  footerAddress: "Sandip University, Nashik, Maharashtra, India", // REPLACE
+  faqs: [
+    { q: "What is the eligibility for admission?", a: "Eligibility depends on the programme. Please share your details and our counsellor will confirm the exact criteria." },
+    { q: "Do I need a drawing or portfolio background?", a: "No prior portfolio is mandatory for most programmes — creativity and interest matter most. Confirm with admissions for your chosen course." },
+    { q: "Are scholarships available?", a: "Merit-based scholarships may be available. Ask our admission team for the latest details." },
+    { q: "Is there placement or internship support?", a: "Yes, the university supports students with internships and placement opportunities in the design industry." },
+  ],
+  footerAddress: "Sandip University, Nashik, Maharashtra, India",
 };
+
+const DEGREES = [
+  {
+    id: "bdes",
+    title: "Bachelor of Design (B.Des)",
+    duration: "4 Years",
+    mode: "Full-Time",
+    eligibility: [
+      "Passed 10+2 with 45% (40% for reserved category)",
+      "OR 10th + Diploma in any stream",
+    ],
+    specializations: [
+      {
+        key: "Fashion & Lifestyle",
+        summary:
+          "B.Des. Fashion & Lifestyle Design lets you explore trends, style, branding, and creative storytelling—while you build a career that's as stylish and unique as you. Learn to design everything from clothing to lifestyle products and become the trendsetter the world looks up to.",
+        careers: ["Fashion Designer", "Fashion Illustrator", "Stylist", "Textile Designer", "Merchandiser", "Accessory Designer"],
+      },
+      {
+        key: "Space & Interior",
+        summary:
+          "B.Des. in Space & Interior Design opens the door to a world of creative spaces, smart layouts, and immersive experiences—while you build a career as unique and dynamic as your imagination. Learn to design everything from stunning interiors to innovative spatial solutions and become the designer who shapes the way people live, work, and feel.",
+        careers: ["Interior Designer", "Exhibition Designer", "Lighting Designer", "Set Designer", "Furniture Designer"],
+      },
+      {
+        key: "Communication Design",
+        summary:
+          "B.Des. in Communication Design lets you turn ideas into impactful visuals, stories, and digital experiences—while you build a career that blends creativity, technology, and strategy. Dive into graphics, motion, branding, UI/UX, and more, and become the visionary communicator who inspires audiences, shapes culture, and leads the future of creative innovation.",
+        careers: ["Graphic Designer", "UI/UX Designer", "Art Director", "Brand Strategist", "Digital Media Designer"],
+      },
+      {
+        key: "Product Design",
+        summary:
+          "B.Des. in Product Design empowers you to transform ideas into innovative products that shape everyday life—while you build a future-focused career at the intersection of creativity, technology, and problem-solving. Explore design thinking, prototyping, materials, and user experience, and become the creator who invents smarter solutions and defines the products of tomorrow.",
+        careers: ["Product Designer", "Industrial Designer", "UX Designer", "Design Strategist"],
+      },
+    ],
+  },
+  {
+    id: "bsc",
+    title: "Bachelor of Science (B.Sc)",
+    duration: "3 Years",
+    mode: "Full-Time",
+    eligibility: [
+      "Passed 10+2 with 45% marks (40% reserved)",
+      "OR 12th + Diploma in Pharmacy",
+    ],
+    specializations: [
+      {
+        key: "Fashion & Apparel",
+        summary:
+          "B.Sc. in Fashion & Apparel Design takes you deep into the science, art, and craft of clothing—while you build a stylish career driven by creativity, skill, and innovation. Explore fabrics, garment construction, fashion technology, and trend creation, and become the designer who brings ideas to life with precision and future-ready expertise.",
+        careers: ["Costume Designer", "Apparel Designer", "Textile Designer", "Garment Technologist"],
+      },
+      {
+        key: "Interior Design",
+        summary:
+          "B.Sc. in Interior Design & Decoration immerses you in the art of creating beautiful, functional, and inspiring spaces—while you build a career that brings imagination to life. Explore design principles, décor styles, materials, lighting, and space planning, and become the designer who transforms ordinary places into extraordinary experiences.",
+        careers: ["Interior Designer", "3D Visualizer", "Interior Stylist", "Set Designer", "Design Consultant"],
+      },
+      {
+        key: "Beauty Cosmetology",
+        summary:
+          "B.Sc. in Beauty & Cosmetology takes you into the science and artistry of beauty—while you build a glamorous career shaped by skill, creativity, and innovation. Explore skincare, hair design, makeup artistry, wellness, and advanced beauty technologies, and become the expert who enhances confidence and sets new trends in the beauty industry.",
+        careers: ["Cosmetologist", "Hair Stylist", "Makeup Artist", "Beauty Therapist", "Skin Care Specialist"],
+      },
+    ],
+  },
+  {
+    id: "msc",
+    title: "Master of Science (M.Sc)",
+    duration: "2 Years",
+    mode: "Full-Time",
+    eligibility: [
+      "Graduation with minimum 50% (45% reserved category)",
+      "From any recognized university",
+    ],
+    specializations: [
+      {
+        key: "Fashion & Apparel",
+        summary:
+          "M.Sc. in Fashion & Apparel Design offers an in-depth exploration of advanced fashion concepts. The program covers garment construction, textile innovation, trend forecasting, sustainable fashion, and design research, providing comprehensive knowledge and practical expertise to master the art and science of apparel design.",
+        careers: ["Fashion Designer", "Production Manager", "Fashion Merchandiser", "Fashion Stylist"],
+      },
+      {
+        key: "Beauty Cosmetology",
+        summary:
+          "M.Sc. in Beauty Cosmetology delves deep into the science and artistry of beauty. The program covers advanced skincare, makeup techniques, hair science, aesthetic treatments, and innovative beauty technologies, providing comprehensive knowledge and hands-on expertise to master the evolving world of cosmetology.",
+        careers: ["Makeup Artist", "Cosmetologist", "Skin Specialist", "Salon Manager", "Product Trainer"],
+      },
+    ],
+  },
+];
 
 /* ----------------------------- theme ----------------------------- */
 
@@ -134,7 +239,6 @@ function useWidth() {
   return w;
 }
 
-// Returns responsive flags used by every section
 function useBp() {
   const w = useWidth();
   return { sm: w >= 640, md: w >= 768, lg: w >= 1024 };
@@ -142,6 +246,24 @@ function useBp() {
 
 const goToForm = () =>
   document.getElementById("enquire")?.scrollIntoView({ behavior: "smooth" });
+
+const NAV = [
+  { label: "Home", id: "home" },
+  { label: "About Us", id: "about" },
+  { label: "Courses", id: "courses" },
+  { label: "Recruiters", id: "recruiters" },
+  { label: "Campus Life", id: "campus-life" },
+  { label: "Why Choose Us", id: "why-us" },
+  { label: "Contact Us", id: "enquire" },
+];
+
+const goTo = (id) => {
+  if (id === "home") {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    return;
+  }
+  document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+};
 
 function Container({ children, style }) {
   const { sm } = useBp();
@@ -194,7 +316,6 @@ function SectionTitle({ eyebrow, title, center = true, light = false }) {
   );
 }
 
-// Button / link with hover support (inline styles can't do :hover)
 function Btn({ href, onClick, style, hoverStyle, children, type }) {
   const [hover, setHover] = useState(false);
   const Tag = href ? "a" : "button";
@@ -221,7 +342,6 @@ function Btn({ href, onClick, style, hoverStyle, children, type }) {
   );
 }
 
-// Card that lifts on hover
 function HoverCard({ style, children }) {
   const [hover, setHover] = useState(false);
   return (
@@ -240,7 +360,6 @@ function HoverCard({ style, children }) {
   );
 }
 
-// Input / select with focus ring
 function Field({ as = "input", style, ...props }) {
   const [focus, setFocus] = useState(false);
   const Tag = as;
@@ -365,7 +484,15 @@ function LeadForm() {
 /* ----------------------------- sections ----------------------------- */
 
 function Header() {
-  const { sm } = useBp();
+  const { sm, lg } = useBp();
+  const w = useWidth();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const go = (id) => {
+    setMenuOpen(false);
+    goTo(id);
+  };
+
   return (
     <header
       style={{
@@ -377,30 +504,71 @@ function Header() {
         borderBottom: `1px solid ${C.slate200}`,
       }}
     >
-      <Container style={{ display: "flex", height: 64, alignItems: "center", justifyContent: "space-between" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <Container style={{ display: "flex", height: 64, alignItems: "center", justifyContent: "space-between", gap: 16, maxWidth: 1180 }}>
+        <div style={{ display: "flex", alignItems: "center", gap: 10, flexShrink: 0 }}>
           <img
             src={universityLogo}
             alt={CONTENT.brand}
-            style={{ height: 69, width: "auto", objectFit: "contain", display: "block" }}
+            style={{ height: 56, width: "auto", objectFit: "contain", display: "block" }}
           />
-          <span style={{ fontSize: 13, fontWeight: 600, color: C.orange600 }}>{CONTENT.school}</span>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-          {sm && (
+
+        {lg && (
+          <nav style={{ display: "flex", alignItems: "center", gap: 4 }}>
+            {NAV.map((n) => (
+              <Btn
+                key={n.id}
+                onClick={() => go(n.id)}
+                style={{ padding: "8px 10px", background: "none", color: C.slate700, fontSize: 14, fontWeight: 600, borderRadius: 6 }}
+                hoverStyle={{ color: C.orange600 }}
+              >
+                {n.label}
+              </Btn>
+            ))}
+          </nav>
+        )}
+
+        <div style={{ display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
+          {w >= 1200 && (
             <a href={CONTENT.phoneHref} style={{ fontSize: 14, fontWeight: 600, color: C.slate700, textDecoration: "none" }}>
               📞 {CONTENT.phone}
             </a>
           )}
-          <Btn
-            onClick={goToForm}
-            style={{ padding: "8px 20px", borderRadius: 999, background: C.orange600, color: C.white, fontSize: 14, fontWeight: 600 }}
-            hoverStyle={{ background: C.orange700 }}
-          >
-            Apply Now
-          </Btn>
+          {sm && (
+            <Btn
+              onClick={goToForm}
+              style={{ padding: "8px 20px", borderRadius: 999, background: C.orange600, color: C.white, fontSize: 14, fontWeight: 600 }}
+              hoverStyle={{ background: C.orange700 }}
+            >
+              Apply Now
+            </Btn>
+          )}
+          {!lg && (
+            <button
+              onClick={() => setMenuOpen(!menuOpen)}
+              aria-label="Toggle menu"
+              aria-expanded={menuOpen}
+              style={{ background: "none", border: `1px solid ${C.slate300}`, borderRadius: 8, width: 40, height: 40, fontSize: 20, cursor: "pointer", color: C.slate700 }}
+            >
+              {menuOpen ? "✕" : "☰"}
+            </button>
+          )}
         </div>
       </Container>
+
+      {!lg && menuOpen && (
+        <nav style={{ background: C.white, borderTop: `1px solid ${C.slate200}`, padding: "8px 16px 16px", display: "flex", flexDirection: "column" }}>
+          {NAV.map((n) => (
+            <button
+              key={n.id}
+              onClick={() => go(n.id)}
+              style={{ textAlign: "left", padding: "12px 4px", background: "none", border: "none", borderBottom: `1px solid ${C.slate200}`, fontFamily: "inherit", fontSize: 15, fontWeight: 600, color: C.slate700, cursor: "pointer" }}
+            >
+              {n.label}
+            </button>
+          ))}
+        </nav>
+      )}
     </header>
   );
 }
@@ -408,7 +576,7 @@ function Header() {
 function Hero() {
   const { sm, lg } = useBp();
   return (
-    <section style={{ position: "relative", overflow: "hidden", background: C.blue950 }}>
+    <section id="home" style={{ position: "relative", overflow: "hidden", background: C.blue950 }}>
       <img
         src={IMG.hero}
         alt="Design student draping fabric on a mannequin in the studio"
@@ -521,7 +689,7 @@ function Stats() {
 function About() {
   const { sm, lg } = useBp();
   return (
-    <section style={{ padding: sm ? "80px 0" : "64px 0" }}>
+    <section id="about" style={{ padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
       <Container style={{ display: "grid", gridTemplateColumns: lg ? "1fr 1fr" : "1fr", alignItems: "center", gap: 40 }}>
         <div>
           <SectionTitle eyebrow="Who we are" title={CONTENT.aboutTitle} center={false} />
@@ -544,7 +712,7 @@ function About() {
           loading="lazy"
           style={{
             width: "100%",
-            height: "100px",
+            height: lg ? 380 : 240,
             objectFit: "cover",
             borderRadius: 16,
             boxShadow: "0 20px 40px rgba(15,23,42,.2)",
@@ -555,29 +723,181 @@ function About() {
   );
 }
 
+/* ----------------------------- programmes ----------------------------- */
+
+function DegreePanel({ degree }) {
+  const { sm, md } = useBp();
+  const [tab, setTab] = useState(0);
+  const spec = degree.specializations[tab];
+
+  return (
+    <div
+      style={{
+        boxSizing: "border-box",
+        background: C.white,
+        border: `1px solid ${C.slate200}`,
+        borderRadius: 20,
+        overflow: "hidden",
+        boxShadow: "0 10px 30px rgba(15,23,42,.08)",
+      }}
+    >
+      <div style={{ background: C.blue900, color: C.white, padding: sm ? "28px 32px" : "24px 20px" }}>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          <span style={{ padding: "4px 12px", borderRadius: 999, background: C.orange600, fontSize: 12, fontWeight: 600 }}>
+            {degree.duration}
+          </span>
+          <span style={{ padding: "4px 12px", borderRadius: 999, background: "rgba(255,255,255,.15)", fontSize: 12, fontWeight: 600 }}>
+            {degree.mode}
+          </span>
+        </div>
+        <h3 style={{ margin: "12px 0 0", fontSize: sm ? 30 : 24, fontWeight: 800 }}>{degree.title}</h3>
+        <p style={{ margin: "16px 0 8px", fontSize: 13, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.orange400 }}>
+          Choose Specialization
+        </p>
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+          {degree.specializations.map((s, i) => (
+            <button
+              key={s.key}
+              onClick={() => setTab(i)}
+              aria-pressed={tab === i}
+              style={{
+                padding: "10px 18px",
+                borderRadius: 999,
+                border: `1px solid ${tab === i ? C.orange600 : "rgba(255,255,255,.4)"}`,
+                background: tab === i ? C.orange600 : "transparent",
+                color: C.white,
+                fontFamily: "inherit",
+                fontSize: 14,
+                fontWeight: 600,
+                cursor: "pointer",
+                transition: "background-color .2s, border-color .2s",
+              }}
+            >
+              {s.key}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: md ? "1.2fr 1fr" : "1fr",
+          gap: md ? 40 : 28,
+          padding: sm ? "32px" : "24px 20px",
+        }}
+      >
+        <div>
+          <h4 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: C.slate900 }}>{spec.key} — Summary</h4>
+          <p style={{ margin: "12px 0 0", fontSize: 15, lineHeight: 1.7, color: C.slate600 }}>{spec.summary}</p>
+
+          <h4 style={{ margin: "28px 0 0", fontSize: 18, fontWeight: 700, color: C.slate900 }}>Eligibility</h4>
+          <ul style={{ margin: "12px 0 0", padding: 0, listStyle: "none", display: "flex", flexDirection: "column", gap: 8 }}>
+            {degree.eligibility.map((e) => (
+              <li key={e} style={{ display: "flex", gap: 10, fontSize: 15, lineHeight: 1.5, color: C.slate700 }}>
+                <span style={{ color: C.orange600, fontWeight: 700 }}>✓</span>
+                {e}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div style={{ boxSizing: "border-box", background: C.slate50, border: `1px solid ${C.slate200}`, borderRadius: 16, padding: 24, alignSelf: "start" }}>
+          <h4 style={{ margin: 0, fontSize: 18, fontWeight: 700, color: C.slate900 }}>Career Opportunities</h4>
+          <div style={{ marginTop: 16, display: "flex", flexWrap: "wrap", gap: 8 }}>
+            {spec.careers.map((c) => (
+              <span
+                key={c}
+                style={{ padding: "8px 14px", borderRadius: 999, background: C.white, border: `1px solid ${C.blue200}`, color: C.blue900, fontSize: 14, fontWeight: 600 }}
+              >
+                {c}
+              </span>
+            ))}
+          </div>
+          <Btn
+            onClick={goToForm}
+            style={{ marginTop: 24, padding: "12px 24px", borderRadius: 999, background: C.orange600, color: C.white, fontSize: 14, fontWeight: 600 }}
+            hoverStyle={{ background: C.orange700 }}
+          >
+            Enquire for {spec.key} →
+          </Btn>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 function Programs() {
   const { sm, md } = useBp();
+  const bdes = DEGREES.find((d) => d.id === "bdes");
+  const others = CONTENT.programs.filter((p) => !DEGREES.some((d) => d.title === p.name));
+
   return (
-    <section style={{ background: C.slate50, padding: sm ? "80px 0" : "64px 0" }}>
+    <section id="courses" style={{ background: C.slate50, padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
       <Container>
-        <SectionTitle eyebrow="Programmes" title="Choose Your Design Path" />
-        <div style={{ marginTop: 40, display: "grid", gridTemplateColumns: md ? "repeat(3, 1fr)" : "1fr", gap: 24 }}>
-          {CONTENT.programs.map((p) => (
-            <HoverCard key={p.name} style={{ boxSizing: "border-box", background: C.white, border: `1px solid ${C.slate200}`, borderRadius: 16, padding: 24 }}>
-              <span style={{ display: "inline-block", padding: "4px 12px", borderRadius: 999, background: C.orange100, color: C.orange700, fontSize: 12, fontWeight: 600 }}>
-                {p.duration}
-              </span>
-              <h3 style={{ margin: "16px 0 0", fontSize: 24, fontWeight: 700, color: C.slate900 }}>{p.name}</h3>
-              <p style={{ margin: "8px 0 0", fontSize: 14, lineHeight: 1.6, color: C.slate600 }}>{p.blurb}</p>
-              <Btn
-                onClick={goToForm}
-                style={{ marginTop: 20, padding: 0, background: "none", color: C.orange600, fontSize: 14, fontWeight: 600 }}
-                hoverStyle={{ color: C.orange700 }}
-              >
-                Enquire now →
-              </Btn>
-            </HoverCard>
-          ))}
+        <SectionTitle eyebrow="Programmes" title="Bachelor of Design" />
+
+        <div style={{ marginTop: 40 }}>
+          <DegreePanel degree={bdes} />
+        </div>
+
+        {others.length > 0 && (
+          <div style={{ marginTop: 32, display: "grid", gridTemplateColumns: md ? `repeat(${others.length}, 1fr)` : "1fr", gap: 24 }}>
+            {others.map((p) => (
+              <HoverCard key={p.name} style={{ boxSizing: "border-box", background: C.white, border: `1px solid ${C.slate200}`, borderRadius: 16, padding: 24 }}>
+                <span style={{ display: "inline-block", padding: "4px 12px", borderRadius: 999, background: C.orange100, color: C.orange700, fontSize: 12, fontWeight: 600 }}>
+                  {p.duration}
+                </span>
+                <h3 style={{ margin: "16px 0 0", fontSize: 24, fontWeight: 700, color: C.slate900 }}>{p.name}</h3>
+                <p style={{ margin: "8px 0 0", fontSize: 14, lineHeight: 1.6, color: C.slate600 }}>{p.blurb}</p>
+                <Btn
+                  onClick={goToForm}
+                  style={{ marginTop: 20, padding: 0, background: "none", color: C.orange600, fontSize: 14, fontWeight: 600 }}
+                  hoverStyle={{ color: C.orange700 }}
+                >
+                  Enquire now →
+                </Btn>
+              </HoverCard>
+            ))}
+          </div>
+        )}
+      </Container>
+    </section>
+  );
+}
+
+function BscPrograms() {
+  const { sm } = useBp();
+  const bsc = DEGREES.find((d) => d.id === "bsc");
+
+  return (
+    <section id="bsc-courses" style={{ background: C.white, padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
+      <Container>
+        <SectionTitle eyebrow="Programmes" title="Bachelor of Science" />
+        <p style={{ margin: "12px auto 0", maxWidth: 576, textAlign: "center", color: C.slate600, lineHeight: 1.6 }}>
+          Science-based programmes in fashion, interiors and beauty.
+        </p>
+        <div style={{ marginTop: 40 }}>
+          <DegreePanel degree={bsc} />
+        </div>
+      </Container>
+    </section>
+  );
+}
+
+function MscPrograms() {
+  const { sm } = useBp();
+  const msc = DEGREES.find((d) => d.id === "msc");
+
+  return (
+    <section id="msc-courses" style={{ background: C.slate50, padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
+      <Container>
+        <SectionTitle eyebrow="Programmes" title="Master of Science" />
+        <p style={{ margin: "12px auto 0", maxWidth: 576, textAlign: "center", color: C.slate600, lineHeight: 1.6 }}>
+          Advanced postgraduate programmes in fashion and beauty.
+        </p>
+        <div style={{ marginTop: 40 }}>
+          <DegreePanel degree={msc} />
         </div>
       </Container>
     </section>
@@ -587,7 +907,7 @@ function Programs() {
 function Highlights() {
   const { sm, lg } = useBp();
   return (
-    <section style={{ padding: sm ? "80px 0" : "64px 0" }}>
+    <section id="why-us" style={{ padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
       <Container>
         <SectionTitle eyebrow="Why choose us" title="What Makes Our School Different" />
         <div
@@ -625,69 +945,159 @@ function Highlights() {
   );
 }
 
-function GalleryItem({ src, alt, cap, style }) {
+/* ----------------------------- campus life ----------------------------- */
+
+function CarouselArrow({ dir, onClick, top }) {
   const [hover, setHover] = useState(false);
   return (
-    <figure
+    <button
+      onClick={onClick}
+      aria-label={dir === "left" ? "Previous" : "Next"}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      style={{ position: "relative", overflow: "hidden", margin: 0, borderRadius: 16, ...style }}
+      style={{
+        position: "absolute",
+        top,
+        [dir]: 4,
+        transform: "translateY(-50%)",
+        zIndex: 2,
+        width: 44,
+        height: 44,
+        borderRadius: "50%",
+        border: "none",
+        cursor: "pointer",
+        fontSize: 22,
+        lineHeight: 1,
+        color: hover ? C.white : C.slate900,
+        background: hover ? C.orange600 : "rgba(255,255,255,.92)",
+        boxShadow: "0 4px 12px rgba(15,23,42,.25)",
+        transition: "background-color .2s, color .2s",
+      }}
     >
-      <img
-        src={src}
-        alt={alt}
-        loading="lazy"
-        style={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          display: "block",
-          transition: "transform .5s",
-          transform: hover ? "scale(1.05)" : "scale(1)",
-        }}
-      />
-      <figcaption
-        style={{
-          position: "absolute",
-          left: 0,
-          right: 0,
-          bottom: 0,
-          padding: 16,
-          fontSize: 14,
-          fontWeight: 600,
-          color: C.white,
-          background: "linear-gradient(to top, rgba(0,0,0,.7), transparent)",
-        }}
-      >
-        {cap}
-      </figcaption>
-    </figure>
+      {dir === "left" ? "‹" : "›"}
+    </button>
   );
 }
 
-function StudioLife() {
-  const { sm, md } = useBp();
-  const items = [
-    { src: IMG.mentor, alt: "Faculty guiding a student with embroidery", cap: "One-to-one mentoring", span: { gridColumn: "span 2", gridRow: "span 2" } },
-    { src: IMG.craft, alt: "Student hand-embroidering in the studio", cap: "Hands-on craft", span: {} },
-    { src: IMG.collab, alt: "Students sketching and stitching together", cap: "Collaborative studios", span: {} },
-    { src: IMG.detail, alt: "Close-up of embroidery in progress", cap: "Attention to detail", span: { gridColumn: "span 2" } },
-  ];
+function CampusCard({ item, imgH }) {
+  const [hover, setHover] = useState(false);
   return (
-    <section style={{ background: C.blue950, color: C.white, padding: sm ? "80px 0" : "64px 0" }}>
-      <Container>
-        <SectionTitle eyebrow="Life in the studio" title="Where Ideas Become Design" light />
-        <div
+    <div
+      onMouseEnter={() => setHover(true)}
+      onMouseLeave={() => setHover(false)}
+      style={{
+        boxSizing: "border-box",
+        height: "100%",
+        overflow: "hidden",
+        background: C.white,
+        borderRadius: 20,
+        boxShadow: hover ? "0 14px 30px rgba(15,23,42,.18)" : "0 4px 14px rgba(15,23,42,.10)",
+        transition: "box-shadow .3s",
+      }}
+    >
+      <div style={{ overflow: "hidden", height: imgH, background: `linear-gradient(135deg, ${C.blue900}, ${C.orange600})` }}>
+        <img
+          src={item.src}
+          alt={item.title}
+          loading="lazy"
+          onError={(e) => (e.currentTarget.style.display = "none")}
           style={{
-            marginTop: 40,
-            display: "grid",
-            gridTemplateColumns: md ? "repeat(4, 1fr)" : "1fr",
-            gridAutoRows: md ? 190 : 220,
-            gap: 16,
+            display: "block",
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            transition: "transform .5s",
+            transform: hover ? "scale(1.06)" : "scale(1)",
           }}
+        />
+      </div>
+      <div style={{ padding: "20px 24px 24px" }}>
+        <h3 style={{ margin: 0, fontSize: 20, fontWeight: 700, color: C.slate900 }}>{item.title}</h3>
+        <p style={{ margin: "8px 0 0", fontSize: 15, lineHeight: 1.6, color: C.slate600 }}>{item.text}</p>
+      </div>
+    </div>
+  );
+}
+
+function CampusLife() {
+  const { sm, md } = useBp();
+  const perView = md ? 2 : 1;
+  const pages = Math.ceil(CAMPUS.length / perView);
+  const imgH = md ? 300 : sm ? 260 : 210;
+
+  const [index, setIndex] = useState(0);
+  const [paused, setPaused] = useState(false);
+  const page = Math.min(index, pages - 1);
+
+  const next = () => setIndex((page + 1) % pages);
+  const prev = () => setIndex((page - 1 + pages) % pages);
+
+  useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => setIndex((i) => (Math.min(i, pages - 1) + 1) % pages), 5000);
+    return () => clearInterval(t);
+  }, [paused, pages]);
+
+  return (
+    <section
+      id="campus-life"
+      style={{
+        padding: sm ? "80px 0" : "64px 0",
+        scrollMarginTop: 64,
+        background: `linear-gradient(to bottom, ${C.orange100}, ${C.white} 35%, ${C.slate50})`,
+      }}
+    >
+      <Container>
+        <SectionTitle eyebrow="Life at Sandip" title="Campus Life" />
+        <p style={{ margin: "12px auto 0", maxWidth: 576, textAlign: "center", color: C.slate600, lineHeight: 1.6 }}>
+          Learning, creativity, fitness and community — everything you need for a complete university experience.
+        </p>
+
+        <div
+          onMouseEnter={() => setPaused(true)}
+          onMouseLeave={() => setPaused(false)}
+          style={{ position: "relative", marginTop: 40 }}
         >
-          {items.map((it) => (
-            <GalleryItem key={it.cap} src={it.src} alt={it.alt} cap={it.cap} style={md ? it.span : {}} />
+          <CarouselArrow dir="left" onClick={prev} top={imgH / 2 + 8} />
+          <CarouselArrow dir="right" onClick={next} top={imgH / 2 + 8} />
+
+          <div style={{ overflow: "hidden", margin: "0 -12px", padding: "8px 0 24px" }}>
+            <div
+              style={{
+                display: "flex",
+                transform: `translateX(-${page * 100}%)`,
+                transition: "transform .6s ease",
+              }}
+            >
+              {CAMPUS.map((item) => (
+                <div
+                  key={item.title}
+                  style={{ boxSizing: "border-box", flex: `0 0 ${100 / perView}%`, padding: "0 12px" }}
+                >
+                  <CampusCard item={item} imgH={imgH} />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div style={{ display: "flex", justifyContent: "center", gap: 8 }}>
+          {Array.from({ length: pages }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setIndex(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              style={{
+                width: i === page ? 28 : 10,
+                height: 10,
+                borderRadius: 999,
+                border: "none",
+                padding: 0,
+                cursor: "pointer",
+                background: i === page ? C.orange600 : C.slate300,
+                transition: "width .3s, background-color .3s",
+              }}
+            />
           ))}
         </div>
       </Container>
@@ -789,6 +1199,66 @@ function Process() {
   );
 }
 
+function Recruiters() {
+  const { sm, md } = useBp();
+  return (
+    <section
+      id="recruiters"
+      style={{ background: C.blue950, padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}
+    >
+      <Container>
+        <SectionTitle eyebrow="Placements" title="Our Recruiters" light />
+        <p style={{ margin: "12px auto 0", maxWidth: 576, textAlign: "center", color: C.blue200, lineHeight: 1.6 }}>
+          Leading fashion, lifestyle, beauty and design brands hire and mentor our students.
+        </p>
+
+        <div
+          style={{
+            marginTop: 40,
+            display: "grid",
+            gridTemplateColumns: md ? "repeat(4, 1fr)" : "repeat(2, 1fr)",
+            gap: sm ? 20 : 12,
+          }}
+        >
+          {RECRUITERS.map((r) => (
+            <HoverCard
+              key={r.name}
+              style={{
+                boxSizing: "border-box",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                height: sm ? 140 : 110,
+                padding: 16,
+                background: C.white,
+                borderRadius: 16,
+                overflow: "hidden",
+              }}
+            >
+              <img
+                src={r.src}
+                alt={r.name}
+                loading="lazy"
+                style={{ display: "block", maxWidth: "100%", maxHeight: "100%", objectFit: "contain" }}
+              />
+            </HoverCard>
+          ))}
+        </div>
+
+        <div style={{ marginTop: 40, textAlign: "center" }}>
+          <Btn
+            onClick={goToForm}
+            style={{ padding: "12px 32px", borderRadius: 999, background: C.orange600, color: C.white, fontSize: 14, fontWeight: 600 }}
+            hoverStyle={{ background: C.orange700 }}
+          >
+            Start Your Journey
+          </Btn>
+        </div>
+      </Container>
+    </section>
+  );
+}
+
 function FAQ() {
   const { sm } = useBp();
   const [open, setOpen] = useState(0);
@@ -874,7 +1344,7 @@ function FinalCTA() {
 function Footer() {
   const { md } = useBp();
   return (
-    <footer style={{ background: C.slate900, padding: md ? "32px 0" : "32px 0 96px", textAlign: "center", fontSize: 14, color: C.slate400 }}>
+    <footer style={{ padding: md ? "15px 0" : "32px 0 96px", textAlign: "center", fontSize: 14, color: C.slate700 }}>
       <Container>
         <img
           src={universityLogo}
@@ -932,11 +1402,14 @@ export default function SchoolOfDesignLanding() {
       <Stats />
       <About />
       <Programs />
+      <BscPrograms />
+      <MscPrograms />
       <Highlights />
-      <StudioLife />
+      <CampusLife />
       <Showcase />
       <Careers />
       <Process />
+      <Recruiters />
       <FAQ />
       <FinalCTA />
       <Footer />
