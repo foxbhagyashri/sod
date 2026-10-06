@@ -140,6 +140,17 @@ const DEGREES = [
           "B.Des. in Product Design empowers you to transform ideas into innovative products that shape everyday life—while you build a future-focused career at the intersection of creativity, technology, and problem-solving. Explore design thinking, prototyping, materials, and user experience, and become the creator who invents smarter solutions and defines the products of tomorrow.",
         careers: ["Product Designer", "Industrial Designer", "UX Designer", "Design Strategist"],
       },
+      {
+        key: "Program Outcomes",
+        summary: [
+          "Apply creative thinking and design principles to solve real-world problems.",
+          "Develop innovative, user-centered design solutions.",
+          "Gain proficiency in modern design tools and technologies.",
+          "Conduct research and translate insights into effective designs.",
+          "Understand sustainable and ethical design practices.",
+        ],
+        careers: ["Product Designer", "Industrial Designer", "UX Designer", "Design Strategist"],
+      },
     ],
   },
   {
@@ -170,6 +181,12 @@ const DEGREES = [
           "B.Sc. in Beauty & Cosmetology takes you into the science and artistry of beauty—while you build a glamorous career shaped by skill, creativity, and innovation. Explore skincare, hair design, makeup artistry, wellness, and advanced beauty technologies, and become the expert who enhances confidence and sets new trends in the beauty industry.",
         careers: ["Cosmetologist", "Hair Stylist", "Makeup Artist", "Beauty Therapist", "Skin Care Specialist"],
       },
+      {
+        key: "Program Outcomes",
+        summary:
+          "Apply scientific knowledge to solve real-world problems.Develop analytical, logical, and critical-thinking skills.Gain practical knowledge through experiments and research.Communicate scientific ideas clearly and effectively.",
+        careers: ["Cosmetologist", "Hair Stylist", "Makeup Artist", "Beauty Therapist", "Skin Care Specialist"],
+      },
     ],
   },
   {
@@ -192,6 +209,12 @@ const DEGREES = [
         key: "Beauty Cosmetology",
         summary:
           "M.Sc. in Beauty Cosmetology delves deep into the science and artistry of beauty. The program covers advanced skincare, makeup techniques, hair science, aesthetic treatments, and innovative beauty technologies, providing comprehensive knowledge and hands-on expertise to master the evolving world of cosmetology.",
+        careers: ["Makeup Artist", "Cosmetologist", "Skin Specialist", "Salon Manager", "Product Trainer"],
+      },
+      {
+        key: "Program Outcomes",
+        summary:
+          "Apply advanced scientific knowledge to solve complex problems.Develop critical thinking, analytical, and research skills.Conduct scientific research using modern tools and techniques.Analyze and interpret scientific data effectively.Communicate research findings clearly and professionally.",
         careers: ["Makeup Artist", "Cosmetologist", "Skin Specialist", "Salon Manager", "Product Trainer"],
       },
     ],
@@ -465,7 +488,7 @@ function LeadForm() {
           marginTop: 20,
           padding: "14px 16px",
           borderRadius: 8,
-          background: C.orange600,
+          background: "rgb(216 10 18)",
           color: C.white,
           fontSize: 16,
           fontWeight: 600,
@@ -537,8 +560,8 @@ function Header() {
           {sm && (
             <Btn
               onClick={goToForm}
-              style={{ padding: "8px 20px", borderRadius: 999, background: C.orange600, color: C.white, fontSize: 14, fontWeight: 600 }}
-              hoverStyle={{ background: C.orange700 }}
+              style={{ padding: "8px 20px", borderRadius: 999, background: "rgb(216 10 18)", color: C.white, fontSize: 14, fontWeight: 600 }}
+              hoverStyle={{ background: "#000" }}
             >
               Apply Now
             </Btn>
@@ -606,7 +629,7 @@ function Hero() {
               display: "inline-block",
               padding: "4px 16px",
               borderRadius: 999,
-              background: C.orange600,
+              background: "rgb(216 10 18)",
               fontSize: 12,
               fontWeight: 600,
               letterSpacing: "0.08em",
@@ -641,7 +664,7 @@ function Hero() {
                     width: 20,
                     height: 20,
                     borderRadius: "50%",
-                    background: C.orange500,
+                    background: "rgb(216 10 18)",
                     fontSize: 12,
                     flexShrink: 0,
                   }}
@@ -664,7 +687,7 @@ function Hero() {
 function Stats() {
   const { md } = useBp();
   return (
-    <section style={{ background: C.orange600 }}>
+    <section style={{ background: "rgb(216 10 18)" }}>
       <Container
         style={{
           display: "grid",
@@ -700,8 +723,8 @@ function About() {
           </div>
           <Btn
             onClick={goToForm}
-            style={{ marginTop: 24, padding: "12px 24px", borderRadius: 999, background: C.blue900, color: C.white, fontSize: 14, fontWeight: 600 }}
-            hoverStyle={{ background: C.blue800 }}
+            style={{ marginTop: 24, padding: "12px 24px", borderRadius: 999, background: "rgb(216 10 18)", color: C.white, fontSize: 14, fontWeight: 600 }}
+            hoverStyle={{ background: "#000" }}
           >
             Talk to a Counsellor
           </Btn>
@@ -741,9 +764,9 @@ function DegreePanel({ degree }) {
         boxShadow: "0 10px 30px rgba(15,23,42,.08)",
       }}
     >
-      <div style={{ background: C.blue900, color: C.white, padding: sm ? "28px 32px" : "24px 20px" }}>
+      <div style={{ background: "rgb(216 10 18)", color: C.white, padding: sm ? "28px 32px" : "24px 20px" }}>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-          <span style={{ padding: "4px 12px", borderRadius: 999, background: C.orange600, fontSize: 12, fontWeight: 600 }}>
+          <span style={{ padding: "4px 12px", borderRadius: 999, background: "#000", fontSize: 12, fontWeight: 600 }}>
             {degree.duration}
           </span>
           <span style={{ padding: "4px 12px", borderRadius: 999, background: "rgba(255,255,255,.15)", fontSize: 12, fontWeight: 600 }}>
@@ -751,7 +774,7 @@ function DegreePanel({ degree }) {
           </span>
         </div>
         <h3 style={{ margin: "12px 0 0", fontSize: sm ? 30 : 24, fontWeight: 800 }}>{degree.title}</h3>
-        <p style={{ margin: "16px 0 8px", fontSize: 13, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: C.orange400 }}>
+        <p style={{ margin: "16px 0 8px", fontSize: 13, fontWeight: 600, letterSpacing: "0.1em", textTransform: "uppercase", color: "#fff" }}>
           Choose Specialization
         </p>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
@@ -764,7 +787,7 @@ function DegreePanel({ degree }) {
                 padding: "10px 18px",
                 borderRadius: 999,
                 border: `1px solid ${tab === i ? C.orange600 : "rgba(255,255,255,.4)"}`,
-                background: tab === i ? C.orange600 : "transparent",
+                background: tab === i ? "#000" : "transparent",
                 color: C.white,
                 fontFamily: "inherit",
                 fontSize: 14,
@@ -816,8 +839,8 @@ function DegreePanel({ degree }) {
           </div>
           <Btn
             onClick={goToForm}
-            style={{ marginTop: 24, padding: "12px 24px", borderRadius: 999, background: C.orange600, color: C.white, fontSize: 14, fontWeight: 600 }}
-            hoverStyle={{ background: C.orange700 }}
+            style={{ marginTop: 24, padding: "12px 24px", borderRadius: 999, background: "rgb(216 10 18)", color: C.white, fontSize: 14, fontWeight: 600 }}
+            hoverStyle={{ background: "#000" }}
           >
             Enquire for {spec.key} →
           </Btn>
@@ -826,25 +849,116 @@ function DegreePanel({ degree }) {
     </div>
   );
 }
+const TABS = [
+  { id: "bdes", label: "B.Des", title: "Bachelor of Design", hash: "#courses" },
+  {
+    id: "bsc",
+    label: "B.Sc",
+    title: "Bachelor of Science",
+    hash: "#bsc-courses",
+    desc: "Science-based programmes in fashion, interiors and beauty.",
+  },
+  {
+    id: "msc",
+    label: "M.Sc",
+    title: "Master of Science",
+    hash: "#msc-courses",
+    desc: "Advanced postgraduate programmes in fashion and beauty.",
+  },
+];
 
 function Programs() {
   const { sm, md } = useBp();
-  const bdes = DEGREES.find((d) => d.id === "bdes");
+  const [active, setActive] = useState(0);
+  const tab = TABS[active];
+  const degree = DEGREES.find((d) => d.id === tab.id);
   const others = CONTENT.programs.filter((p) => !DEGREES.some((d) => d.title === p.name));
+
+  // Keep old nav links (#bsc-courses, #msc-courses) working: they switch the tab
+  useEffect(() => {
+    const syncFromHash = () => {
+      const i = TABS.findIndex((t) => t.hash === window.location.hash);
+      if (i !== -1) setActive(i);
+    };
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    return () => window.removeEventListener("hashchange", syncFromHash);
+  }, []);
 
   return (
     <section id="courses" style={{ background: C.slate50, padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
-      <Container>
-        <SectionTitle eyebrow="Programmes" title="Bachelor of Design" />
+      {/* anchors so existing links to these ids still scroll here */}
+      <span id="bsc-courses" style={{ display: "block", scrollMarginTop: 64 }} />
+      <span id="msc-courses" style={{ display: "block", scrollMarginTop: 64 }} />
 
-        <div style={{ marginTop: 40 }}>
-          <DegreePanel degree={bdes} />
+      <Container>
+        <SectionTitle eyebrow="Programmes" title={tab.title} />
+        {tab.desc && (
+          <p style={{ margin: "12px auto 0", maxWidth: 576, textAlign: "center", color: C.slate600, lineHeight: 1.6 }}>
+            {tab.desc}
+          </p>
+        )}
+
+        {/* Filter tabs: flat, one row, underline on active */}
+        <div
+          role="tablist"
+          style={{
+            display: "flex",
+            flexWrap: "nowrap",
+            marginTop: 40,
+            marginBottom: 24,
+            borderBottom: `2px solid ${C.slate200}`,
+          }}
+        >
+          {TABS.map((t, i) => {
+            const isActive = active === i;
+            return (
+              <button
+                key={t.id}
+                role="tab"
+                aria-selected={isActive}
+                onClick={() => setActive(i)}
+                style={{
+                  flex: 1,
+                  minWidth: 0,
+                  whiteSpace: "nowrap",
+                  padding: sm ? "16px 12px" : "12px 6px",
+                  background: "transparent",
+                  border: "none",
+                  borderBottom: `3px solid ${isActive ? C.orange600 : "transparent"}`,
+                  marginBottom: -2,
+                  color: isActive ? "rgb(216 10 18)" : C.slate600,
+                  fontFamily: "inherit",
+                  fontSize: sm ? 17 : 15,
+                  fontWeight: isActive ? 800 : 600,
+                  cursor: "pointer",
+                  transition: "color .2s, border-color .2s",
+                }}
+              >
+                {t.label}
+              </button>
+            );
+          })}
         </div>
 
-        {others.length > 0 && (
-          <div style={{ marginTop: 32, display: "grid", gridTemplateColumns: md ? `repeat(${others.length}, 1fr)` : "1fr", gap: 24 }}>
+        {/* key resets the specialization tab when the degree changes */}
+        <DegreePanel key={degree.id} degree={degree} />
+
+        {/* extra programmes only under B.Des, as before */}
+        {tab.id === "bdes" && others.length > 0 && (
+          <div
+            style={{
+              marginTop: 32,
+              display: "grid",
+              gridTemplateColumns: md ? `repeat(${others.length}, 1fr)` : "1fr",
+              gap: 24,
+            }}
+          >
             {others.map((p) => (
-              <HoverCard key={p.name} style={{ boxSizing: "border-box", background: C.white, border: `1px solid ${C.slate200}`, borderRadius: 16, padding: 24 }}>
+              <HoverCard
+                key={p.name}
+                style={{ boxSizing: "border-box", background: C.white, border: `1px solid ${C.slate200}`, borderRadius: 16, padding: 24 }}
+              >
                 <span style={{ display: "inline-block", padding: "4px 12px", borderRadius: 999, background: C.orange100, color: C.orange700, fontSize: 12, fontWeight: 600 }}>
                   {p.duration}
                 </span>
@@ -861,44 +975,6 @@ function Programs() {
             ))}
           </div>
         )}
-      </Container>
-    </section>
-  );
-}
-
-function BscPrograms() {
-  const { sm } = useBp();
-  const bsc = DEGREES.find((d) => d.id === "bsc");
-
-  return (
-    <section id="bsc-courses" style={{ background: C.white, padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
-      <Container>
-        <SectionTitle eyebrow="Programmes" title="Bachelor of Science" />
-        <p style={{ margin: "12px auto 0", maxWidth: 576, textAlign: "center", color: C.slate600, lineHeight: 1.6 }}>
-          Science-based programmes in fashion, interiors and beauty.
-        </p>
-        <div style={{ marginTop: 40 }}>
-          <DegreePanel degree={bsc} />
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-function MscPrograms() {
-  const { sm } = useBp();
-  const msc = DEGREES.find((d) => d.id === "msc");
-
-  return (
-    <section id="msc-courses" style={{ background: C.slate50, padding: sm ? "80px 0" : "64px 0", scrollMarginTop: 64 }}>
-      <Container>
-        <SectionTitle eyebrow="Programmes" title="Master of Science" />
-        <p style={{ margin: "12px auto 0", maxWidth: 576, textAlign: "center", color: C.slate600, lineHeight: 1.6 }}>
-          Advanced postgraduate programmes in fashion and beauty.
-        </p>
-        <div style={{ marginTop: 40 }}>
-          <DegreePanel degree={msc} />
-        </div>
       </Container>
     </section>
   );
@@ -928,7 +1004,7 @@ function Highlights() {
                   width: 40,
                   height: 40,
                   borderRadius: 8,
-                  background: C.blue900,
+                  background: "rgb(216 10 18)",
                   color: C.white,
                   fontWeight: 700,
                 }}
@@ -1181,7 +1257,7 @@ function Process() {
                   height: 56,
                   margin: "0 auto",
                   borderRadius: "50%",
-                  background: C.orange600,
+                  background: "rgb(216 10 18)",
                   color: C.white,
                   fontSize: 20,
                   fontWeight: 700,
@@ -1305,7 +1381,7 @@ function FAQ() {
 function FinalCTA() {
   const { sm } = useBp();
   return (
-    <section style={{ background: `linear-gradient(to right, ${C.blue900}, ${C.blue700})`, padding: "64px 0", textAlign: "center", color: C.white }}>
+    <section style={{ background: "rgb(216 10 18)", padding: "64px 0", textAlign: "center", color: C.white }}>
       <Container>
         <h2 style={{ margin: 0, fontSize: sm ? 36 : 30, fontWeight: 700 }}>Ready to Start Your Design Journey?</h2>
         <p style={{ margin: "12px auto 0", maxWidth: 576, color: C.blue100 }}>
@@ -1323,7 +1399,7 @@ function FinalCTA() {
         >
           <Btn
             onClick={goToForm}
-            style={{ padding: "12px 32px", borderRadius: 999, background: C.orange600, color: C.white, fontWeight: 600 }}
+            style={{ padding: "12px 32px", borderRadius: 999, background: "#000", color: C.white, fontWeight: 600 }}
             hoverStyle={{ background: C.orange700 }}
           >
             Apply Now
@@ -1402,8 +1478,8 @@ export default function SchoolOfDesignLanding() {
       <Stats />
       <About />
       <Programs />
-      <BscPrograms />
-      <MscPrograms />
+      {/* <BscPrograms />
+      <MscPrograms /> */}
       <Highlights />
       <CampusLife />
       <Showcase />
