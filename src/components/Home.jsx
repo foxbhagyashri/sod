@@ -140,17 +140,7 @@ const DEGREES = [
           "B.Des. in Product Design empowers you to transform ideas into innovative products that shape everyday life—while you build a future-focused career at the intersection of creativity, technology, and problem-solving. Explore design thinking, prototyping, materials, and user experience, and become the creator who invents smarter solutions and defines the products of tomorrow.",
         careers: ["Product Designer", "Industrial Designer", "UX Designer", "Design Strategist"],
       },
-      {
-        key: "Program Outcomes",
-        summary: [
-          "Apply creative thinking and design principles to solve real-world problems.",
-          "Develop innovative, user-centered design solutions.",
-          "Gain proficiency in modern design tools and technologies.",
-          "Conduct research and translate insights into effective designs.",
-          "Understand sustainable and ethical design practices.",
-        ],
-        careers: ["Product Designer", "Industrial Designer", "UX Designer", "Design Strategist"],
-      },
+
     ],
   },
   {
@@ -181,12 +171,7 @@ const DEGREES = [
           "B.Sc. in Beauty & Cosmetology takes you into the science and artistry of beauty—while you build a glamorous career shaped by skill, creativity, and innovation. Explore skincare, hair design, makeup artistry, wellness, and advanced beauty technologies, and become the expert who enhances confidence and sets new trends in the beauty industry.",
         careers: ["Cosmetologist", "Hair Stylist", "Makeup Artist", "Beauty Therapist", "Skin Care Specialist"],
       },
-      {
-        key: "Program Outcomes",
-        summary:
-          "Apply scientific knowledge to solve real-world problems.Develop analytical, logical, and critical-thinking skills.Gain practical knowledge through experiments and research.Communicate scientific ideas clearly and effectively.",
-        careers: ["Cosmetologist", "Hair Stylist", "Makeup Artist", "Beauty Therapist", "Skin Care Specialist"],
-      },
+
     ],
   },
   {
@@ -211,12 +196,7 @@ const DEGREES = [
           "M.Sc. in Beauty Cosmetology delves deep into the science and artistry of beauty. The program covers advanced skincare, makeup techniques, hair science, aesthetic treatments, and innovative beauty technologies, providing comprehensive knowledge and hands-on expertise to master the evolving world of cosmetology.",
         careers: ["Makeup Artist", "Cosmetologist", "Skin Specialist", "Salon Manager", "Product Trainer"],
       },
-      {
-        key: "Program Outcomes",
-        summary:
-          "Apply advanced scientific knowledge to solve complex problems.Develop critical thinking, analytical, and research skills.Conduct scientific research using modern tools and techniques.Analyze and interpret scientific data effectively.Communicate research findings clearly and professionally.",
-        careers: ["Makeup Artist", "Cosmetologist", "Skin Specialist", "Salon Manager", "Product Trainer"],
-      },
+
     ],
   },
 ];
@@ -552,11 +532,7 @@ function Header() {
         )}
 
         <div style={{ display: "flex", alignItems: "center", gap: 16, flexShrink: 0 }}>
-          {w >= 1200 && (
-            <a href={CONTENT.phoneHref} style={{ fontSize: 14, fontWeight: 600, color: C.slate700, textDecoration: "none" }}>
-              📞 {CONTENT.phone}
-            </a>
-          )}
+
           {sm && (
             <Btn
               onClick={goToForm}
@@ -1478,12 +1454,13 @@ export default function SchoolOfDesignLanding() {
       <Stats />
       <About />
       <Programs />
+      <Careers />
       {/* <BscPrograms />
       <MscPrograms /> */}
       <Highlights />
       <CampusLife />
       <Showcase />
-      <Careers />
+
       <Process />
       <Recruiters />
       <FAQ />
