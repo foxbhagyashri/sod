@@ -47,7 +47,7 @@ const CONTENT = {
   phone: "+91-8956374111",
   phoneHref: "tel:+918956374111",
   heroTag: "Admissions Open 2026–27",
-  heroTitle: "Design Your Future at the School of Design",
+  heroTitle: "Start Your Creative Journey at Sandip University School of Design",
   heroSub:
     "Studio-based, industry-connected design education where you learn by making — from fashion and textiles to craft and creative direction.",
   heroPoints: [
@@ -56,6 +56,15 @@ const CONTENT = {
     "Industry-aligned curriculum",
     "Modern campus & design labs",
   ],
+  datNotice: {
+    titlee: "1st Phase Examination",
+    title: "Applications Invited for SU-DAT 2027",
+    lastDateLabel: "Last Date to Apply",
+    lastDate: "4th Feb 2027",
+    examLabel: "SU-DAT Exam",
+    examDate: "6th Feb 2027",
+  },
+
   stats: [
     { value: "20+", label: "Years of Excellence" },
     { value: "150+", label: "Industry Partners" },
@@ -620,6 +629,58 @@ function Hero() {
           <p style={{ margin: "16px 0 0", maxWidth: 576, fontSize: 18, lineHeight: 1.6, color: C.blue100 }}>
             {CONTENT.heroSub}
           </p>
+          <div
+            style={{
+              marginTop: 24,
+              maxWidth: 576,
+              padding: "16px 20px",
+              borderRadius: 12,
+              background: "rgba(255,255,255,.1)",
+              border: "1px solid rgba(255,255,255,.25)",
+              borderLeft: "4px solid rgb(216 10 18)",
+              backdropFilter: "blur(4px)",
+            }}
+          >
+            <div style={{ fontSize: sm ? 20 : 17, fontWeight: 600, lineHeight: 1.3, marginBottom: 5 }}>
+              {CONTENT.datNotice.titlee}
+            </div>
+            <div style={{ fontSize: sm ? 17 : 17, fontWeight: 700, lineHeight: 1.3 }}>
+              {CONTENT.datNotice.title}
+            </div>
+
+            <div
+              style={{
+                marginTop: 12,
+                display: "flex",
+                flexDirection: sm ? "row" : "column",
+                alignItems: sm ? "center" : "flex-start",
+                gap: sm ? 20 : 10,
+              }}
+            >
+              <div>
+                <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: C.blue100 }}>
+                  {CONTENT.datNotice.lastDateLabel}
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 700 }}>{CONTENT.datNotice.lastDate}</div>
+              </div>
+
+              <div
+                aria-hidden="true"
+                style={{
+                  width: sm ? 1 : "100%",
+                  height: sm ? 36 : 1,
+                  background: "rgba(255,255,255,.35)",
+                }}
+              />
+
+              <div>
+                <div style={{ fontSize: 12, textTransform: "uppercase", letterSpacing: "0.08em", color: C.blue100 }}>
+                  {CONTENT.datNotice.examLabel}
+                </div>
+                <div style={{ fontSize: 18, fontWeight: 700 }}>{CONTENT.datNotice.examDate}</div>
+              </div>
+            </div>
+          </div>
           <ul
             style={{
               listStyle: "none",
